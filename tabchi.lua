@@ -180,7 +180,7 @@ function process(msg)
         if #matches == 2 then
           redis:sadd("tabchi:" .. tostring(tabchi_id) .. ":sudoers", tonumber(matches[2]))
           save_log("User " .. msg.sender_user_id_ .. ", Added " .. matches[2] .. " As Sudo")
-          return tostring(matches[2]) .. " Added to Sudo Users"
+          return tostring(matches[2]) .. " تم اضافته لقائمة المطورين"
         end
 			    elseif text_:match("^[!/#](help)") and is_sudo(msg) then
       local text1 = [[
@@ -188,31 +188,31 @@ function process(msg)
 راهنمای ربات تبچی نسخه 4.3 دیکامپایل شده بدون تبلیغ
 
 /pm <userid> <text>
-ارسال <text> به <userid>
+لارسال رساله لعضو عبر الخاص📞
 
 /block <userid>
-مسدود کردن فرد تعیین شده از چت خصوصی🚨
+لحظر عضو من قبل البوت✔️
 
 /unblock <userid>
-ازاد کردن فرد تعیین شده از چت خصوصی
+لالغاء حظر البوت للعضو❌
 
 /panel
-دریافت گزارش کامل از عملکرد ربات📇
+لعرض لوحة التحكم 👾
 
 /addsudo <userid>
-اعطای مقام مدیر به فرد مشخص شده👤
+لرفع مطور على البوت💡
 
 /remsudo <userid>
-تنزل فرد از مقام مدیریت👟
+لازاله مطور على البوت👞
 
 /sudolist
-دریافت لیست مدیران ربات 🔦
+لعرض قائمة المطورين 🚬🐸
 
 /bc <text>
 پیام همگانی تعیین شده توسط ربات به همه گروه و سوپر گروه و چت های خصوصی📫
 
 /fwd <all/users/gps/sgps> (on reply)
-فروارد پیام رپلای شده به همه/کاربران/گروه ها/سوپر گروه ها جهت افزایش بازدید و تبلیغات 🔎
+لتوجيه رساله على كل مجموعات و جهات البوت/الجهات/المجموعات/المجموعات الخارقة (عبر الرد)😋
 
 /echo <text>
 تکرار متن متغیر ما 
@@ -279,7 +279,7 @@ function process(msg)
 				
 —------—
 
-Help >> @To_My_Amigos ]]
+Help >> @Gowad ]]
 return tdcli.sendMessage(msg.chat_id_, 0, 1, text1, 1, "")
 	  
       elseif text_:match("^[!/#](remsudo) (%d+)") then
@@ -289,7 +289,7 @@ return tdcli.sendMessage(msg.chat_id_, 0, 1, text1, 1, "")
         if #matches == 2 then
           redis:srem("tabchi:" .. tostring(tabchi_id) .. ":sudoers", tonumber(matches[2]))
           save_log("User " .. msg.sender_user_id_ .. ", Removed " .. matches[2] .. " From Sudoers")
-          return tostring(matches[2]) .. " Removed From Sudo Users"
+          return tostring(matches[2]) .. "تم ازالته من المطورين"
         end
       elseif text_:match("^[!/#]sudolist$") then
         local sudoers = redis:smembers("tabchi:" .. tostring(tabchi_id) .. ":sudoers")
@@ -462,7 +462,7 @@ return tdcli.sendMessage(msg.chat_id_, 0, 1, text1, 1, "")
       if #matches == 2 then
         tdcli.blockUser(tonumber(matches[2]))
         save_log("User " .. msg.sender_user_id_ .. ", Blocked " .. matches[2])
-        return "User blocked"
+        return "تم حظر العضو"
       end
     elseif text_:match("[!/#](unblock) (%d+)") then
       local matches = {
@@ -471,7 +471,7 @@ return tdcli.sendMessage(msg.chat_id_, 0, 1, text1, 1, "")
       if #matches == 2 then
         tdcli.unblockUser(tonumber(matches[2]))
         save_log("User " .. msg.sender_user_id_ .. ", Unlocked " .. matches[2])
-        return "User unblocked"
+        return "تم فك حظر العضو"
       end
     elseif text_:match("^[!/#](s2a) (.*) (.*)") then
       local matches = {
@@ -515,7 +515,7 @@ return tdcli.sendMessage(msg.chat_id_, 0, 1, text1, 1, "")
       local query = tostring(gps) .. " " .. tostring(sgps) .. " " .. tostring(pvs) .. " " .. tostring(links) .. " " .. tostring(sudo) .. " " .. tostring(contacts)
           local text = [[
 		  
-Normal Stats By : @To_My_Amigos
+Normal Stats By : @Gowad
 
 Users : ]] .. tostring(pvs) .. [[
 
@@ -550,11 +550,11 @@ Saved Contacts : ]] .. tostring(contacts)
         if matches[2] == "on" then
           redis:set("tabchi:" .. tostring(tabchi_id) .. ":addedcontact", true)
           save_log("User " .. msg.sender_user_id_ .. ", Turned On Added Contact")
-          return "Added Contact Turned On"
+          return "تم تشغيل امر اضافه جهات الاتصال"
         elseif matches[2] == "off" then
           redis:del("tabchi:" .. tostring(tabchi_id) .. ":addedcontact")
           save_log("User " .. msg.sender_user_id_ .. ", Turned Off Added Contact")
-          return "Added Contact Turned Off"
+          return "تم اطفاء امر اضافه جهات الاتصال"
         end
       end
     elseif text_:match("^[!/#](markread) (.*)") then
@@ -565,11 +565,11 @@ Saved Contacts : ]] .. tostring(contacts)
         if matches[2] == "on" then
           redis:set("tabchi:" .. tostring(tabchi_id) .. ":markread", true)
           save_log("User " .. msg.sender_user_id_ .. ", Turned On Markread")
-          return "Markread Turned On"
+          return "تم تشغيل صح القرائة"
         elseif matches[2] == "off" then
           redis:del("tabchi:" .. tostring(tabchi_id) .. ":markread")
           save_log("User " .. msg.sender_user_id_ .. ", Turned Off Markread")
-          return "Markread Turned Off"
+          return "تم اطفاء صح القرائه"
         end
       end
     elseif text_:match("^[!/#](joinlinks) (.*)") then
