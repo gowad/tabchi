@@ -338,7 +338,7 @@ return tdcli.sendMessage(msg.chat_id_, 0, 1, text1, 1, "")
       if #matches == 3 then
         tdcli.sendMessage(tonumber(matches[2]), 0, 1, matches[3], 1, "html")
         save_log("User " .. msg.sender_user_id_ .. ", Sent A Pm To " .. matches[2] .. ", Content : " .. matches[3])
-        return "Sent!"
+        return "تم الارسال 📪"
       end
 	  
     elseif text_:match("^[!/#](setanswer) '(.*)' (.*)") then
@@ -683,7 +683,7 @@ Message :
           }, dl_cb, nil)
         end
         save_log("User " .. msg.sender_user_id_ .. ", Used BC, Content " .. matches[2])
-        return "Sent!"
+        return "تم الارسال 📪"
       end
     elseif text_:match("^[!/#](fwd) (.*)$") then
       local matches = {
@@ -756,7 +756,7 @@ Message :
           save_log("User " .. msg.sender_user_id_ .. ", Used Fwd Sgps")
         end
       end
-      return "Sent!"
+      return "تم الارسال 📪"
     else
       local matches = {
         text_:match("^[!/#](echo) (.*)")
